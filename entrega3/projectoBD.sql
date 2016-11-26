@@ -66,9 +66,8 @@ create table Posto
 	 codigo integer(20) not null,
 	 codigo_espaco integer(20) not null,
 	 primary key(morada,codigo),
-	 foreign key(morada,codigo) references Alugavel(morada,codigo) on delete cascade),
-	 foreign key(morada,codigo_espaco) references Espaco(morada,codigo) on delete cascade)
-	;
+	 foreign key(morada,codigo) references Alugavel(morada,codigo) on delete cascade,
+	 foreign key(morada,codigo_espaco) references Espaco(morada,codigo) on delete cascade);
 
 
 create table Oferta
@@ -87,10 +86,8 @@ create table Aluga
 	 nif integer(20) not null,
 	 numero integer(20) not null,
 	 primary key(morada,codigo,data_inicio,nif,numero),
-	 foreign key(morada,codigo,data_inicio) references Oferta(morada,codigo,data_inicio) 
-	 on delete cascade,
-	 foreign key(nif) references User(nif)
-	 on delete cascade,
+	 foreign key(morada,codigo,data_inicio) references Oferta(morada,codigo,data_inicio)  on delete cascade,
+	 foreign key(nif) references User(nif) on delete cascade,
 	 foreign key(numero) references Reserva(numero));
 
 create table Paga
@@ -98,16 +95,14 @@ create table Paga
 	 data date,
 	 metodo varchar(255),
 	 primary key(numero),
-	 foreign key(numero) references Reserva(numero)
-	 on delete cascade);
+	 foreign key(numero) references Reserva(numero) on delete cascade);
 
 create table Estado
 	(numero integer(20),
 	 time_stamp timestamp,
 	 estado varchar(255),
 	 primary key(numero,time_stamp),
-	 foreign key(numero) references Reserva(numero)
-	 on delete cascade);	
+	 foreign key(numero) references Reserva(numero) on delete cascade);	
 
 create table Reserva
 	(numero integer(20) not null unique,
