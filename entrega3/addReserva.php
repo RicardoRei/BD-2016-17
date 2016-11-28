@@ -3,9 +3,10 @@
 <?php
  $morada = $_REQUEST['morada'];
  $codigo = $_REQUEST['codigo'];
- $data = $_REQUEST['inicio'];
+ $data = date('Y-m-d');
  $nif = $_REQUEST['nif'];
  $numero = $_REQUEST['numero'];
+ $timestamp = date('Y-m-d G:i:s');
  try
  {
  $host = "db.ist.utl.pt";
@@ -21,6 +22,7 @@
  	$db->beginTransaction();
  	$db->exec("INSERT into Reserva values ($numero)");
  	$db->exec("INSERT into Aluga values ('$morada',$codigo,'$data',$nif,$numero)");
+ 	$db->exec("INSERT into Estado values ($numero, '$timestamp', 'aceite')");
  	$db->commit();
  }catch (Exception $e) {
   $db->rollBack();

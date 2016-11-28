@@ -1,11 +1,8 @@
 <html>
  <body>
 <?php
- $numero = $_REQUEST['n'];
- $data = date('Y-m-d');
- $metodo = $_REQUEST['metodo'];
- $timestamp = date('Y-m-d G:i:s');
-
+ $morada = $_REQUEST['morada'];
+ $codigo = $_REQUEST['codigo'];
  try
  {
  $host = "db.ist.utl.pt";
@@ -19,20 +16,16 @@
  try{
  	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  	$db->beginTransaction();
- 	$db->exec("INSERT into Paga values ($numero,'$data','$metodo')");
- 	$db->exec("UPDATE Estado set estado='paga',time_stamp='$timestamp' where numero=$numero)";
+ 	$db->exec("INSERT into Alugavel values ('$morada', $codigo, '.')");
+ 	$db->exec("INSERT into Espaco values ('$morada',$codigo)");
  	$db->commit();
  }catch (Exception $e) {
   $db->rollBack();
   echo "Failed: " . $e->getMessage();
 }
- echo("<p>A Reserva foi paga com sucesso</p>");
- $db = null;
- }
- catch (PDOException $e)
- {
- echo("<p>ERROR: {$e->getMessage()}</p>");
- }
+
+ echo("<p>Espaço adicionado com sucesso ao Edificio $morada</p>");
+ 
 ?>
  <form><input Type="button" VALUE="Go Back" onClick="history.go(-1);return true;"></form>
  </body>

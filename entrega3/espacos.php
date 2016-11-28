@@ -1,24 +1,18 @@
 <html>
  <body>
- <h3>ESPAÇOS</h3>
+ <h3>Espaços e Postos de Trabalho</h3>
  
 <form action="updateAddEspaco.php" method="post">
- <p>Adicionar Espaço Trabalho: <input type="text" name="morada"/></p>
+ <p>Adicionar Espaço : </p>	
+ <p>Morada: <input type="text" name="morada"/></p>
+ <p>Codigo: <input type="text" name="codigo"/></p>
  <p><input type="submit" value="Submit"/></p>
 </form>
 
-<form action="updateAddPosto.php" method="post">
- <p>Adicionar Posto Trabalho: <input type="text" name="morada"/></p>
- <p><input type="submit" value="Submit"/></p>
-</form>
-
-<form action="updateRemove.php" method="post">
- <p>Remover Espaço Trabalho: <input type="text" name="morada"/></p>
- <p><input type="submit" value="Submit"/></p>
-</form>
-
-<form action="updateRemove.php" method="post">
- <p>Remover Posto: <input type="text" name="morada"/></p>
+<form action="updateRemoveEspaco.php" method="post">
+ <p>Remover Espaço : </p>
+  <p>Morada: <input type="text" name="morada"/></p>
+ <p>Codigo: <input type="text" name="codigo"/></p>
  <p><input type="submit" value="Submit"/></p>
 </form>
 
@@ -32,33 +26,16 @@
 
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
- $sql = "SELECT * FROM Espaco;";
-
+ $sql = "SELECT * from Espaco;";
  $result = $db->query($sql);
  echo("Espaços registados :");
- echo("<table border=\"0\" cellspacing=\"5\">\n");
+echo("<table border=\"0\" cellspacing=\"5\">\n");
  foreach($result as $row)
  {
  echo("<tr>\n");
  echo("<td>{$row['morada']}</td>\n");
- echo("<tr>\n");
  echo("<td>{$row['codigo']}</td>\n");
- echo("</tr>\n");
- }
- echo("</table>\n");
-
- $sql = "SELECT * FROM ;";
-
- $result = $db->query($sql);
- echo("Espaços registados :");
- echo("<table border=\"0\" cellspacing=\"5\">\n");
- foreach($result as $row)
- {
- echo("<tr>\n");
- echo("<td>{$row['morada']}</td>\n");
- echo("<tr>\n");
- echo("<td>{$row['codigo']}</td>\n");
+ echo("<td><a href=\"posto.php?morada={$row['morada']}&codigo={$row['codigo']}\">Ver Postos</a></td>\n");
  echo("</tr>\n");
  }
  echo("</table>\n");
@@ -72,4 +49,3 @@
 ?>
  <form><input Type="button" VALUE="Go Back" onClick="history.go(-1);return true;"></form>
  </body>
-</html>

@@ -5,7 +5,6 @@
 <form action="pagar.php" method="post">
  <p>Pagar Reserva : </p>	
  <p>Numero: <input type="text" name="n"/></p>
- <p>Data(ano/mes/dia): <input type="text" name="inicio"/></p>
  <p>Metodo: <input type="text" name="metodo"/></p>
 
  <p><input type="submit" value="Submit"/></p>
