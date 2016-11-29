@@ -20,10 +20,10 @@ insert into Alugavel values ('Rua das Peras',10,'.');
 insert into Alugavel values ('Rua das Laranjas',3,'.');
 
 insert into Arrenda values ('Rua das Laranjas',1,454545);
-insert into Arrenda values ('Rua das Peras',1, 454547);
+insert into Arrenda values ('Rua das Peras',10, 454547);
 
 insert into Fiscaliza values (5,'Rua das Laranjas',1);
-insert into Fiscaliza values (2,'Rua das Peras',1);
+insert into Fiscaliza values (2,'Rua das Peras',10);
 
 insert into Espaco values ('Rua das Laranjas',1);
 insert into Espaco values ('Rua dos Limoes',5);
@@ -37,8 +37,8 @@ insert into Posto values ('Rua das Laranjas',4,1);
 insert into Posto values ('Rua dos Limoes',6,5);
 
 insert into Oferta values ('Rua das Laranjas',1,'2016-11-04','2016-12-04', 20);
-insert into Oferta values ('Rua das Peras',1,'2016-11-10','2016-11-17', 10);
-insert into Oferta values ('Rua dos Limoes',4,'2016-11-10','2016-12-10',20);
+insert into Oferta values ('Rua das Peras',10,'2016-11-10','2016-11-17', 10);
+insert into Oferta values ('Rua dos Limoes',6,'2016-11-10','2016-12-10',20);
 
 insert into Aluga values ('Rua das Laranjas',1,'2016-11-04','454549',1);
 insert into Aluga values ('Rua dos Limoes',6,'2016-11-10','454545',2);
