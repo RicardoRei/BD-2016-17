@@ -75,7 +75,7 @@ create table Oferta
 	 codigo integer(20) not null,
 	 data_inicio date not null,
 	 data_fim date not null,
-	 tarifa varchar(255) not null,
+	 tarifa integer(20) not null,
 	 primary key(morada,codigo,data_inicio),
 	 foreign key(morada,codigo) references Alugavel(morada,codigo) on delete cascade);
 
