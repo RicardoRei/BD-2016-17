@@ -1,10 +1,10 @@
 <html>
  <body>
 <?php
- $numero = $_REQUEST['n'];
- $data = date('Y-m-d G:i:s');
- $metodo = $_REQUEST['metodo'];
- $timestamp = date('Y-m-d G:i:s');
+ $morada = $_REQUEST['mo'];
+ $codigo_espaco = $_REQUEST['cod_espaco'];
+ $num = rand();
+ $codigo = "$num";
 
  try
  {
@@ -19,20 +19,15 @@
  try{
  	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  	$db->beginTransaction();
- 	$db->exec("INSERT into paga values ($numero,'$data','$metodo')");
- 	$db->exec("UPDATE estado set estado='paga',time_stamp='$timestamp' where numero='$numero')";
+ 	$db->exec("INSERT into alugavel values ('$morada','$codigo','http://lorempixel.com/400/200/')");
+ 	$db->exec("INSERT into posto values ('$morada','$codigo','$codigo_espaco')");
  	$db->commit();
  }catch (Exception $e) {
   $db->rollBack();
   echo "Failed: " . $e->getMessage();
-}
- echo("<p>A Reserva foi paga com sucesso</p>");
- $db = null;
- }
- catch (PDOException $e)
- {
- echo("<p>ERROR: {$e->getMessage()}</p>");
- }
+}	
+ echo("<p>Posto adicionado com sucesso ao Espaco: $morada $codigo_espaco</p>");
+ 
 ?>
  <form><input Type="button" VALUE="Go Back" onClick="history.go(-1);return true;"></form>
  </body>

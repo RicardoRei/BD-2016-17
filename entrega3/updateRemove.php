@@ -10,7 +10,7 @@
  $dbname = $user;
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "DELETE FROM Edificio WHERE morada ='$morada';";
+ $sql = "DELETE FROM edificio WHERE morada ='$morada';";
  echo("<p>QUERY: $sql</p>");
  echo("<p>O Edificio foi removido com sucesso</p>");
  $db->query($sql);

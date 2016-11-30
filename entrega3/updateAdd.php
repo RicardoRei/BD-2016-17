@@ -10,7 +10,7 @@
  $dbname = $user;
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "INSERT INTO Edificio VALUES ('$morada');";
+ $sql = "INSERT INTO edificio VALUES ('$morada');";
  echo("<p>QUERY: $sql</p>");
  echo("<p>O novo Edificio foi adicionado com sucesso</p>");
  $db->query($sql);

@@ -3,9 +3,10 @@
 <?php
  $morada = $_REQUEST['morada'];
  $codigo = $_REQUEST['codigo'];
- $data = date('Y-m-d');
+ $data = $_REQUEST['inicio'];
  $nif = $_REQUEST['nif'];
- $numero = $_REQUEST['numero'];
+ $num = rand();
+ $numero = "$num";
  $timestamp = date('Y-m-d G:i:s');
  try
  {
@@ -20,9 +21,9 @@
  try{
  	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  	$db->beginTransaction();
- 	$db->exec("INSERT into Reserva values ($numero)");
- 	$db->exec("INSERT into Aluga values ('$morada',$codigo,'$data',$nif,$numero)");
- 	$db->exec("INSERT into Estado values ($numero, '$timestamp', 'aceite')");
+ 	$db->exec("INSERT into reserva values ('$numero')");
+ 	$db->exec("INSERT into aluga values ('$morada','$codigo','$data','$nif','$numero')");
+ 	$db->exec("INSERT into estado values ('$numero', '$timestamp', 'aceite')");
  	$db->commit();
  }catch (Exception $e) {
   $db->rollBack();

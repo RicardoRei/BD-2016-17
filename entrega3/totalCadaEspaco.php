@@ -11,9 +11,9 @@
  $dbname = $user;
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "SELECT morada, codigo, COUNT(morada) as reservas_pagas
-from Edificio natural join Espaco natural join Aluga natural join Paga
-where morada='$morada';";
+ $sql = "SELECT morada,codigo,sum(tarifa) as sum
+from edificio natural join oferta natural join aluga natural join paga
+where morada='$morada' group by morada,codigo;";
  $result = $db->query($sql);
  echo("<table border=\"0\" cellspacing=\"5\">\n");
 
@@ -22,7 +22,7 @@ where morada='$morada';";
  echo("<tr> \n");
  echo("<td>{$row['morada']}</td>\n");
  echo("<td>{$row['codigo']}</td>\n");
- echo("<td>{$row['reservas_pagas']}</td>\n");
+ echo("<td>{$row['sum']}</td>\n");
  echo("</tr>\n");
  }
  echo("</table>\n");

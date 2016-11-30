@@ -16,7 +16,7 @@
  try{
  	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  	$db->beginTransaction();
- 	$db->exec("DELETE from Alugavel where morada='$morada' and codigo=$codigo and foto='.'");
+ 	$db->exec("DELETE from alugavel where morada='$morada' and codigo='$codigo' and foto='http://lorempixel.com/400/200/'");
  	$db->commit();
  }catch (Exception $e) {
   $db->rollBack();

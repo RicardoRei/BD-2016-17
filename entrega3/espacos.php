@@ -5,7 +5,6 @@
 <form action="updateAddEspaco.php" method="post">
  <p>Adicionar Espaço : </p>	
  <p>Morada: <input type="text" name="morada"/></p>
- <p>Codigo: <input type="text" name="codigo"/></p>
  <p><input type="submit" value="Submit"/></p>
 </form>
 
@@ -26,7 +25,7 @@
 
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "SELECT * from Espaco;";
+ $sql = "SELECT * from espaco;";
  $result = $db->query($sql);
  echo("Espaços registados :");
 echo("<table border=\"0\" cellspacing=\"5\">\n");

@@ -13,8 +13,8 @@
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
- $sql = "SELECT morada, codigo, codigo_espaco
-from Espaco natural join Posto where morada='$morada' and codigo=$codigo";
+ $sql = "SELECT distinct P.morada, P.codigo, P.codigo_espaco
+from espaco E, posto P where P.morada='$morada' and P.codigo_espaco='$codigo'";
  $result = $db->query($sql);
  echo("<table border=\"0\" cellspacing=\"5\">\n");
 
@@ -28,7 +28,8 @@ from Espaco natural join Posto where morada='$morada' and codigo=$codigo";
  echo("</tr>\n");
  }
  echo("</table>\n");
- echo("<p>QUERY: $sql</p>");
+ echo ("<p>Adicionar Novo Posto neste Espaco :</p>");
+ echo("<td><a href=\"updateAddPosto.php?mo=$morada&cod_espaco=$codigo\">Adicionar Posto</a></td>\n");
  $db = null;
  }
  catch (PDOException $e)
@@ -36,13 +37,6 @@ from Espaco natural join Posto where morada='$morada' and codigo=$codigo";
  echo("<p>ERROR: {$e->getMessage()}</p>");
  }
 ?>
-<form action="addPosto.php" method="post">
- <p>Adicionar Posto : </p>	
- <p>Morada: <input type="text" name="morada"/></p>
- <p>Codigo: <input type="text" name="codigo"/></p>
- <p><input type="submit" value="Submit"/></p>
-</form>
-
  <form><input Type="button" VALUE="Go Back" onClick="history.go(-1);return true;"></form>
 
  </body>

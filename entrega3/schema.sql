@@ -1,113 +1,107 @@
-/*
-drop table Arrenda cascade;
-drop table Aluga cascade;
-drop table Alugavel cascade;
-drop table Edificio cascade;
-drop table Espaco cascade;
-drop table Estado cascade;
-drop table Fiscal cascade;
-drop table Fiscaliza cascade;
-drop table Oferta cascade;
-drop table Paga cascade;
-drop table Posto cascade;
-drop table Reserva cascade;
-drop table User cascade;
-*/
+drop table if exists estado;
+drop table if exists paga;
+drop table if exists aluga;
+drop table if exists reserva;
+drop table if exists oferta;
+drop table if exists posto;
+drop table if exists espaco;
+drop table if exists fiscaliza;
+drop table if exists arrenda;
+drop table if exists alugavel;
+drop table if exists edificio;
+drop table if exists fiscal;
+drop table if exists user;
 
 
+create table user (
+    nif varchar(9) not null unique,
+    nome varchar(80) not null,
+    telefone varchar(26) not null,
+    primary key(nif));
 
-create table User
-	(nif integer(20) not null unique,
-	 nome varchar(255) not null,
-	 telefone integer(9) not null,
-	 primary key(nif));
+create table fiscal (
+    id int not null unique,
+    empresa varchar(255) not null,
+    primary key(id));
 
+create table edificio (
+    morada varchar(255) not null unique,
+    primary key(morada));
 
-create table Fiscal
-	(id integer(20) not null unique,
-	 empresa varchar(255) not null,
-	 primary key(id));
+create table alugavel (
+    morada varchar(255) not null,
+    codigo varchar(255) not null,
+    foto varchar(255) not null,
+    primary key(morada, codigo),
+    foreign key(morada) references edificio(morada) on delete cascade);
 
-create table Edificio
-	(morada varchar(255) not null,
-	 primary key(morada));
+create table arrenda (
+    morada varchar(255) not null,
+    codigo varchar(255) not null,
+    nif varchar(9) not null,
+    primary key(morada, codigo),
+    foreign key(morada, codigo) references alugavel(morada, codigo) on delete cascade,
+    foreign key(nif) references user(nif) on delete cascade);
 
-create table Alugavel
-	(morada varchar(255) not null,
-	 codigo integer(20) not null,
-	 foto 	varchar(255),
-	 primary key(morada,codigo),	
-	 foreign key(morada) references Edificio(morada) on delete cascade);
+create table fiscaliza (
+    id int not null,
+    morada varchar(255) not null ,
+    codigo varchar(255) not null ,
+    primary key(id, morada, codigo),
+    foreign key(morada, codigo) references arrenda(morada, codigo) on delete cascade,
+    foreign key(id) references fiscal(id) on delete cascade);
 
-create table Arrenda
-	(morada varchar(255) not null,
-	 codigo integer(20) not null,
-	 nif integer(20) not null,
-	 primary key(morada,codigo),
-	 foreign key(morada,codigo) references Alugavel(morada,codigo) on delete cascade,
-	 foreign key(nif) references User(nif) on delete cascade);
+create table espaco (
+    morada varchar(255) not null,
+    codigo varchar(255) not null,
+    primary key(morada, codigo),
+    foreign key(morada, codigo) references alugavel(morada, codigo) on delete cascade);
 
-create table Fiscaliza
-	(id integer(20) not null,
-	 morada varchar(255) not null,
-	 codigo integer(20) not null,
-	 primary key(id,morada,codigo),
-	 foreign key(morada,codigo) references Arrenda(morada,codigo) on delete cascade,
-	 foreign key(id) references Fiscal(id) on delete cascade);
+create table posto (
+    morada varchar(255) not null,
+    codigo varchar(255) not null,
+    codigo_espaco varchar(255) not null,
+    primary key(morada, codigo),
+    foreign key(morada, codigo) references alugavel(morada, codigo) on delete cascade,
+    foreign key(morada, codigo_espaco) references espaco(morada, codigo) on delete cascade);
 
-create table Espaco
-	(morada varchar(255) not null,
-	 codigo integer(20) not null,
-	 primary key(morada,codigo),
-	 foreign key(morada,codigo) references Alugavel(morada,codigo) on delete cascade);
+create table oferta (
+    morada varchar(255) not null,
+    codigo varchar(255) not null,
+    data_inicio date not null,
+    data_fim date not null,
+    tarifa numeric(19,4) not null,
+    primary key(morada, codigo, data_inicio),
+    foreign key(morada, codigo) references alugavel(morada, codigo) on delete cascade);
 
-create table Posto
-	(morada varchar(255) not null,
-	 codigo integer(20) not null,
-	 codigo_espaco integer(20) not null,
-	 primary key(morada,codigo),
-	 foreign key(morada,codigo) references Alugavel(morada,codigo) on delete cascade,
-	 foreign key(morada,codigo_espaco) references Espaco(morada,codigo) on delete cascade);
+create table reserva (
+    numero varchar(255) not null unique,
+    primary key(numero));
 
+create table aluga (
+    morada varchar(255) not null,
+    codigo varchar(255) not null,
+    data_inicio date not null,
+    nif varchar(9) not null,
+    numero varchar(255) not null,
+    primary key(morada, codigo, data_inicio, nif, numero),
+    foreign key(morada, codigo, data_inicio) references oferta(morada, codigo, data_inicio)on delete cascade,
+    foreign key(nif) references user(nif) on delete cascade,
+    foreign key(numero) references reserva(numero) on delete cascade);
 
-create table Oferta
-	(morada varchar(255) not null,
-	 codigo integer(20) not null,
-	 data_inicio date not null,
-	 data_fim date not null,
-	 tarifa integer(20) not null,
-	 primary key(morada,codigo,data_inicio),
-	 foreign key(morada,codigo) references Alugavel(morada,codigo) on delete cascade);
+create table paga (
+    numero varchar(255) not null unique,
+    data timestamp not null,
+    metodo varchar(255) not null,
+    primary key(numero),
+    foreign key(numero) references reserva(numero) on delete cascade);
 
-create table Aluga
-	(morada varchar(255) not null,
-	 codigo integer(20) not null,
-	 data_inicio date not null,
-	 nif integer(20) not null,
-	 numero integer(20) not null,
-	 primary key(morada,codigo,data_inicio,nif,numero),
-	 foreign key(morada,codigo,data_inicio) references Oferta(morada,codigo,data_inicio)  on delete cascade,
-	 foreign key(nif) references User(nif) on delete cascade,
-	 foreign key(numero) references Reserva(numero));
-
-create table Paga
-	(numero integer(20),
-	 data date,
-	 metodo varchar(255),
-	 primary key(numero),
-	 foreign key(numero) references Reserva(numero) on delete cascade);
-
-create table Estado
-	(numero integer(20),
-	 time_stamp timestamp,
-	 estado varchar(255),
-	 primary key(numero,time_stamp),
-	 foreign key(numero) references Reserva(numero) on delete cascade);	
-
-create table Reserva
-	(numero integer(20) not null unique,
-	 primary key(numero));
-
+create table estado (
+    numero varchar(255) not null,
+    time_stamp timestamp not null,
+    estado varchar(255) not null,
+    primary key(numero, time_stamp),
+    foreign key(numero) references reserva(numero) on delete cascade);
 
 
 	 		

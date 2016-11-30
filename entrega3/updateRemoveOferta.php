@@ -12,7 +12,7 @@
  $dbname = $user;
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "DELETE FROM Oferta WHERE morada ='$morada' and codigo =$codigo and data_inicio='$data';";
+ $sql = "DELETE FROM oferta WHERE morada ='$morada' and codigo ='$codigo' and data_inicio='$data';";
  echo("<p>QUERY: $sql</p>");
  echo("<p>Oferta removida com sucesso</p>");
  $db->query($sql);

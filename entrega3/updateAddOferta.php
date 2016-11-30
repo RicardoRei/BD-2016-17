@@ -14,7 +14,7 @@
  $dbname = $user;
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "INSERT into Oferta values ('$morada',$codigo,'$data_i','$data_f','$tarifa')";
+ $sql = "INSERT into oferta values ('$morada','$codigo','$data_i','$data_f',$tarifa)";
  echo("<p>QUERY: $sql</p>");
  echo("<p>A nova Oferta foi adicionada com sucesso</p>");
  $db->query($sql);

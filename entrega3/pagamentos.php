@@ -23,9 +23,9 @@
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  $sql = "SELECT A.morada,A.codigo,A.numero
-		 from Aluga A
+		 from aluga A
   		 where not exists(
-			select numero from Paga
+			select numero from paga
 			where A.numero=numero);";
 
  $result = $db->query($sql);

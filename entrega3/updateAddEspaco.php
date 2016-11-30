@@ -2,7 +2,9 @@
  <body>
 <?php
  $morada = $_REQUEST['morada'];
- $codigo = $_REQUEST['codigo'];
+ $num = rand();
+ $codigo = "$num";
+
  try
  {
  $host = "db.ist.utl.pt";
@@ -16,8 +18,8 @@
  try{
  	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  	$db->beginTransaction();
- 	$db->exec("INSERT into Alugavel values ('$morada', $codigo, '.')");
- 	$db->exec("INSERT into Espaco values ('$morada',$codigo)");
+ 	$db->exec("INSERT into alugavel values ('$morada', '$codigo', 'http://lorempixel.com/400/200/')");
+ 	$db->exec("INSERT into espaco values ('$morada','$codigo')");
  	$db->commit();
  }catch (Exception $e) {
   $db->rollBack();

@@ -22,6 +22,7 @@
 </form>
 
 <?php
+
  try
  {
  $host = "db.ist.utl.pt";
@@ -31,10 +32,15 @@
 
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "SELECT morada,codigo,data_inicio FROM Oferta;";
+ $sql = "SELECT A.morada, A.codigo 
+		from alugavel A 
+		where not exists(
+			select morada,codigo 
+			from oferta 
+			where A.morada=morada and A.codigo=codigo);";
 
  $result = $db->query($sql);
- echo("Ofertas registadas :");
+ echo("Alugaveis sem Ofertas :");
 echo("<table border=\"0\" cellspacing=\"5\">\n");
  foreach($result as $row)
  {

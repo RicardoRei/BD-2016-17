@@ -8,7 +8,6 @@
  <p>Codigo: <input type="text" name="codigo"/></p>
  <p>Data inicio(ano/mes/dia): <input type="text" name="inicio"/></p>
  <p>NIF: <input type="text" name="nif"/></p>
- <p>NºReserva: <input type="text" name="numero"/></p>
 
  <p><input type="submit" value="Submit"/></p>
 </form>
@@ -21,16 +20,14 @@
  $password = "cjrg2559";
  $dbname = $user;
 
- 
-
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  $sql = "SELECT O.morada,O.codigo,O.data_inicio
-		from Oferta O
+		from oferta O
 		where not exists(
 				Select morada,codigo,data_inicio
-				from Aluga
-				where O.morada=morada and O.codigo=codigo and O.data_inicio=data_inicio );";
+				from aluga
+				where O.morada=morada and O.codigo=codigo and O.data_inicio=data_inicio);";
 
  $result = $db->query($sql);
  echo("Espaços com Ofertas mas não Alugados :");
