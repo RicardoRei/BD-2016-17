@@ -2,13 +2,7 @@
  <body>
 <?php
  $morada = $_REQUEST['morada'];
- $codigo = $_REQUEST['codigo_posto'];
- $codigo_espaco = $_REQUEST['codigo_espaco'];
- echo("<p>morada: $morada</p>");
- echo("<p>codigo_posto: $codigo</p>");
- echo("<p>codigo_espaco: $codigo_espaco</p>");
-
-
+ $codigo = $_REQUEST['codigo'];
  try
  {
  $host = "db.ist.utl.pt";
@@ -22,14 +16,14 @@
  try{
  	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  	$db->beginTransaction();
- 	$db->exec("INSERT into alugavel values ('$morada','$codigo','http://lorempixel.com/400/200/')");
- 	$db->exec("INSERT into posto values ('$morada','$codigo','$codigo_espaco')");
+ 	$db->exec("DELETE from alugavel where morada='$morada' and codigo='$codigo' and foto='http://lorempixel.com/400/200/'");
  	$db->commit();
  }catch (Exception $e) {
   $db->rollBack();
   echo "Failed: " . $e->getMessage();
-}	
- echo("<p>Posto adicionado com sucesso ao Espaco: $morada $codigo_espaco</p>");
+}
+
+ echo("<p>Espaço eliminado com sucesso ao Edificio $morada</p>");
  
 ?>
  <form><input Type="button" VALUE="Go Back" onClick="changeHref()"></form>

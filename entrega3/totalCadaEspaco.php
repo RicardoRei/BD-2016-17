@@ -35,7 +35,13 @@ where morada='$morada' group by morada,codigo;";
  }
 ?>
 
- <form><input Type="button" VALUE="Go Back" onClick="history.go(-1);return true;"></form>
+ <form><input Type="button" VALUE="Go Back" onClick="changeHref()"></form>
+ <script>
+ function changeHref()
+	{
+		window.location.href = "http://web.ist.utl.pt/ist178047/edificios.php";
+	}
+ </script>
 
  </body>
 </html>
