@@ -28,8 +28,6 @@ from espaco E, posto P where P.morada='$morada' and P.codigo_espaco='$codigo'";
  echo("</tr>\n");
  }
  echo("</table>\n");
- echo ("<p>Adicionar Novo Posto neste Espaco :</p>");
- echo("<td><a href=\"updateAddPosto.php?mo=$morada&cod_espaco=$codigo\">Adicionar Posto</a></td>\n");
  $db = null;
  }
  catch (PDOException $e)
@@ -37,6 +35,13 @@ from espaco E, posto P where P.morada='$morada' and P.codigo_espaco='$codigo'";
  echo("<p>ERROR: {$e->getMessage()}</p>");
  }
 ?>
+<form action="updateAddPosto.php" method="post">
+ <p>Adicionar Posto neste Espaço : </p>	
+ <p>Codigo: <input type="text" name="codigo_posto"/></p>
+ <input type="hidden" value="<?php echo $morada?>" name="morada" />
+ <input type="hidden" value="<?php echo $codigo?>" name="codigo_espaco" />
+ <p><input type="submit" value="Submit"/></p>
+</form>
  <form><input Type="button" VALUE="Go Back" onClick="history.go(-1);return true;"></form>
 
  </body>

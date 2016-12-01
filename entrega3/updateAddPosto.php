@@ -1,10 +1,13 @@
 <html>
  <body>
 <?php
- $morada = $_REQUEST['mo'];
- $codigo_espaco = $_REQUEST['cod_espaco'];
- $num = rand();
- $codigo = "$num";
+ $morada = $_REQUEST['morada'];
+ $codigo = $_REQUEST['codigo_posto'];
+ $codigo_espaco = $_REQUEST['codigo_espaco'];
+ echo("<p>morada: $morada</p>");
+ echo("<p>codigo_posto: $codigo</p>");
+ echo("<p>codigo_espaco: $codigo_espaco</p>");
+
 
  try
  {

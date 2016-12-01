@@ -2,8 +2,8 @@
  <body>
 <?php
  $morada = $_REQUEST['morada'];
- $num = rand();
- $codigo = "$num";
+ $codigo = $_REQUEST['codigo'];
+
 
  try
  {
