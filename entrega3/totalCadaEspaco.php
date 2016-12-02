@@ -11,9 +11,22 @@
  $dbname = $user;
  $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql = "SELECT morada,codigo,sum(tarifa) as sum
-from edificio natural join oferta natural join aluga natural join paga
-where morada='$morada' group by morada,codigo;";
+ $sql = "SELECT morada, codigo, sum(total)
+from (
+select morada, codigo, sum(total) as total
+from espaco natural join (select morada,codigo,sum(tarifa*DATEDIFF(data_fim, data_inicio)) as total
+						  from oferta natural join aluga natural join paga
+						  group by morada,codigo) as AUX1
+group by morada, codigo
+union
+select morada, codigo_espaco as codigo, sum(total)
+from posto natural join ( select morada,codigo,sum(tarifa*DATEDIFF(data_fim, data_inicio)) as total
+						  from oferta natural join aluga natural join paga
+						  group by morada,codigo) as AUX2
+group by morada, codigo
+) as result
+where morada = '$morada'
+group by morada, codigo;";
  $result = $db->query($sql);
  echo("<table border=\"0\" cellspacing=\"5\">\n");
 
@@ -22,7 +35,7 @@ where morada='$morada' group by morada,codigo;";
  echo("<tr> \n");
  echo("<td>{$row['morada']}</td>\n");
  echo("<td>{$row['codigo']}</td>\n");
- echo("<td>{$row['sum']}</td>\n");
+ echo("<td>{$row['sum(total)']}</td>\n");
  echo("</tr>\n");
  }
  echo("</table>\n");
@@ -42,6 +55,5 @@ where morada='$morada' group by morada,codigo;";
 		window.location.href = "http://web.ist.utl.pt/ist178047/edificios.php";
 	}
  </script>
-
  </body>
 </html>
